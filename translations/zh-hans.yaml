@@ -1,0 +1,89 @@
+clusterNew:
+  baiducce:
+    access:
+      next: "下一步: 配置集群"
+      loading: "从百度云获取VPC信息"
+      title: 账户认证
+      detail: 选择百度云Kubernetes服务所使用的区域
+    region:
+      label: 区域
+    accessKey:
+      label: 密钥ID
+      placeholder: 您的百度云API密钥ID
+      required: 请输入密钥ID
+    secretKey:
+      label: 密钥
+      placeholder: 您的百度云API密钥
+      provided: 已提供
+      required: 请输入密钥
+    cluster:
+      title: 集群配置
+      detail: 选择百度云Kubernetes服务中使用的VPC和版本
+      next: "下一步: 选择主机类型"
+      loading: "从百度云获取可用区信息"
+    vpc:
+      label: VPC
+      required: 请选择VPC
+    version:
+      label: Kubernetes版本
+      required: 请选择Kubernetes版本
+    cidr:
+      label: 容器网络CIDR
+      placeholder: '例如: 172.16.0.0/16'
+      required: 请输入容器网络的CIDR
+      error: CIDR格式错误
+      errorConflict: 容器网络和其他集群的容器网络冲突
+    zone:
+      label: 可用区
+      required: 请选择可用区
+    nodeCount:
+      label: 节点数量
+      placeholder: '例如: 3'
+      required: 请输入节点数量
+      help: 将要创建的百度云Kubernetes服务中所含有的节点数量
+      error: 节点数不能超过{max}
+    instanceType:
+      label: 实例类型
+      required: 请选择实例类型
+    instanceConfig:
+      label: 实例配置(CPU/Memory)
+      required: 请选择实例配置
+    subnet:
+      label: 子网
+      required: 请选择子网
+    node:
+      title: 主机类型
+      detail: 选择百度云Kubernetes服务中使用的主机类型
+      next: "下一步: 配置节点"
+      loading: "从百度云获取节点配置信息"
+    instance:
+      title: 节点配置
+      detail: 配置百度云Kubernetes服务中的节点
+    os:
+      label: 操作系统
+    rootSize:
+      label: 系统盘
+      placeholder: 免费赠送 - Linux送40GB
+    storageType:
+      label: CDS云磁盘类型
+    storageSize:
+      label: CDS云磁盘大小
+      placeholder: '例如: 10'
+    eip:
+      label: 公网IP
+      buyEip: 购买弹性公网IP
+      noEip: 暂不需要
+      name: 名称
+      placeholder: 公网IP名称
+    bandwidth:
+      label: 带宽
+      placeholder: '例如: 10'
+      required: 请输入带宽
+      error: 带宽值应该是1到{max}之前的整数
+    securityGroup:
+      label: 安全组
+      required: 请选择安全组
+    bandwidthType:
+      label: 带宽类型
+      bandwidth: 按带宽计费
+      traffic: 按流量计费

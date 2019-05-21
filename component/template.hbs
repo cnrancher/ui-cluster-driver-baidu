@@ -1,8 +1,273 @@
 <section class="horizontal-form">
 
-  {{!-- This component shows errors produced by validate() in the component --}}
-  {{top-errors errors=errors}}
+  {{#accordion-list showExpandAll=false as | al expandFn |}}
+  {{#accordion-list-item title=accessTitle
+    detail=accessDetail
+    expandAll=expandAll
+    expand=(action expandFn)
+    expandOnInit=true
+  }}
+  <div class="row">
+      <div class="col span-4">
+        <label class="acc-label">{{t 'clusterNew.baiducce.region.label'}}</label>
+        {{#input-or-display editable=(and (eq step 1) isNew) value=selectedRegion}}
+          {{searchable-select class="form-control"
+            content=regionChoices
+            value=config.region
+          }}
+        {{/input-or-display}}
+      </div>
+      <div class="col span-4">
+        <label class="acc-label">{{t 'clusterNew.baiducce.accessKey.label'}}{{field-required}}</label>
+        {{#input-or-display editable=(eq step 1) value=config.accessKey}}
+          {{input type="text" name="username" classNames="form-control" placeholder=(t 'clusterNew.baiducce.accessKey.placeholder') value=config.accessKey}}
+        {{/input-or-display}}
+      </div>
+      <div class="col span-4">
+        <label class="acc-label">{{t 'clusterNew.baiducce.secretKey.label'}}{{field-required}}</label>
+        {{#if (eq step 1)}}
+          {{input type="password" name="password" classNames="form-control" placeholder=(t 'clusterNew.baiducce.secretKey.placeholder') value=config.secretKey}}
+        {{else}}
+          <div class="text-muted text-italic">{{t 'clusterNew.baiducce.secretKey.provided'}}</div>
+        {{/if}}
+      </div>
+    </div>
+  {{/accordion-list-item}}
+  {{#if (and refresh (eq step 1))}}
+    {{save-cancel editing=(eq mode 'edit')
+        save="baiduLogin"
+        cancel=close
+        createLabel="clusterNew.baiducce.access.next"
+        savingLabel="clusterNew.baiducce.access.loading"
+    }}
+  {{/if}}
+  {{#if (gte step 2)}}
+    {{#accordion-list-item title=clusterTitle
+      detail=clusterDetail
+      showExpand=false
+      expandOnInit=true
+      expandAll=al.expandAll
+      expand=(action expandFn)
+    }}
+      <div class="row">
+        <div class="col span-4">
+          <label class="acc-label">{{t 'clusterNew.baiducce.version.label'}}</label>
+          {{#input-or-display editable=(and (eq step 2) isNew) value=config.clusterVersion}}
+            {{searchable-select class="form-control"
+              content=versionChoices
+              value=config.clusterVersion
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-4">
+          <label class="acc-label">{{t 'clusterNew.baiducce.nodeCount.label'}}{{field-required}}</label>
+          {{#input-or-display editable=(eq step 2) value=config.nodeCount}}
+            {{input-integer min=1 max=100 value=config.nodeCount classNames="form-control" placeholder=(t 'clusterNew.baiducce.nodeCount.placeholder')}}
+            <p class="help-block">
+              {{t 'clusterNew.baiducce.nodeCount.help'}}
+            </p>
+          {{/input-or-display}}
+        </div>
+        <div class="col span-4">
+          <label class="acc-label">{{t 'clusterNew.baiducce.vpc.label'}}{{field-required}}</label>
+          {{#input-or-display editable=(and (eq step 2) isNew) value=selectedVpc}}
+            {{searchable-select class="form-control"
+              content=vpcChoices
+              value=config.vpcId
+            }}
+          {{/input-or-display}}
+        </div>
+      </div>
+    {{/accordion-list-item}}
+    {{#if (and refresh (eq step 2))}}
+      {{save-cancel editing=(eq mode 'edit')
+          save="loadNodeConfig"
+          cancel=close
+          createLabel="clusterNew.baiducce.cluster.next"
+          savingLabel="clusterNew.baiducce.cluster.loading"
+      }}
+    {{/if}}
+  {{/if}}
+  {{#if (gte step 3)}}
+    {{#accordion-list-item title=nodeTitle
+         detail=nodeDetail
+         showExpand=false
+         expandOnInit=true
+         expandAll=al.expandAll
+         expand=(action expandFn)
+    }}
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.zone.label'}}{{field-required}}</label>
+          {{#if (and (eq step 3) isNew)}}
+            {{searchable-select class="form-control"
+              content=zoneChoices
+              value=config.zone
+            }}
+          {{else}}
+            <div>{{config.zone}}</div>
+          {{/if}}
+        </div>
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.subnet.label'}}{{field-required}}</label>
+          {{#input-or-display editable=(and (eq step 3) isNew) value=selectedSubnet}}
+            {{searchable-select class="form-control"
+              content=subnetChoices
+              value=config.subnetId
+            }}
+          {{/input-or-display}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.cidr.label'}}{{field-required}}</label>
+          {{#input-or-display editable=isNew value=config.containerCidr}}
+            {{input type="text" classNames="form-control" placeholder=(t 'clusterNew.baiducce.cidr.placeholder') value=config.containerCidr}}
+          {{/input-or-display}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.instanceType.label'}}{{field-required}}</label>
+          {{#input-or-display editable=(and (eq step 3) isNew) value=selecteInstanceType}}
+            {{searchable-select class="form-control"
+              content=instanceTypeChoices
+              value=config.instanceType
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.instanceConfig.label'}}{{field-required}}</label>
+          {{#input-or-display editable=(and (eq step 3) isNew) value=selectedCpuAndMemory}}
+            {{searchable-select class="form-control"
+              content=cpuAndMemoryChoices
+              value=cpuAndMemoryConfig
+              change=(action 'cpuAndMemoryChanged')
+            }}
+          {{/input-or-display}}
+        </div>
+      </div>
+    {{/accordion-list-item}}
+    {{#if (and refresh (eq step 3))}}
+      {{save-cancel editing=(eq mode 'edit')
+          save="loadInstanceConfig"
+          cancel=close
+          createLabel="clusterNew.baiducce.node.next"
+          savingLabel="clusterNew.baiducce.node.loading"
+      }}
+    {{/if}}
+  {{/if}}
+  {{#if (gte step 4)}}
+    {{#accordion-list-item title=instanceTitle
+         detail=instanceDetail
+         showExpand=false
+         expandOnInit=true
+         expandAll=al.expandAll
+         expand=(action expandFn)
+    }}
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.os.label'}}</label>
+          {{#input-or-display editable=isNew value=selectedImage}}
+            {{searchable-select class="form-control"
+              content=imageChioces
+              value=config.imageId
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.rootSize.label'}}</label>
+          <div class="input-group">
+           {{t 'clusterNew.baiducce.rootSize.placeholder'}}
+          </div>
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.securityGroup.label'}}{{field-required}}</label>
+          {{#input-or-display editable=isNew value=selectedSecurityGroup}}
+            {{searchable-select class="form-control"
+              content=sgChoices
+              value=config.securityGroupId
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-6">
+        </div>
+      </div>
 
-  {{!-- This component shows the Create and Cancel buttons --}}
-  {{save-cancel save="save" cancel="cancel"}}
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.storageType.label'}}</label>
+          {{#input-or-display editable=isNew value=cdsConfig.type}}
+            {{searchable-select class="form-control"
+              content=cdsTypeChoices
+              value=cdsConfig.type
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.storageSize.label'}}</label>
+          <div class="input-group">
+            {{#input-or-display editable=isNew value=cdsConfig.value}}
+              {{input-integer min=0 max=5120 step=5 value=cdsConfig.value classNames="form-control" placeholder=(t 'clusterNew.baiducce.storageSize.placeholder')}}
+            {{/input-or-display}}
+            <span class="input-group-addon bg-default">{{t 'generic.gigabyte'}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.eip.label'}}</label>
+          {{#input-or-display editable=isNew value=config.ifBuyEip}}
+            {{searchable-select class="form-control"
+              content=buyEipChoices
+              localizedLabel=true
+              value=config.ifBuyEip
+            }}
+          {{/input-or-display}}
+        </div>
+        {{!-- {{#if config.ifBuyEip}}
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.eip.name'}}</label>
+          {{#input-or-display editable=isNew value=config.eipName}}
+            {{input type="text" classNames="form-control" placeholder=(t 'clusterNew.baiducce.eip.placeholder') value=config.eipName}}
+          {{/input-or-display}}
+        </div>
+        {{/if}} --}}
+      </div>
+      {{#if config.ifBuyEip}}
+      <div class="row">
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.bandwidthType.label'}}</label>
+          {{#input-or-display editable=isNew value=selectedBandWidthBillingMethod}}
+            {{searchable-select class="form-control"
+              content=bandWidthChoices
+              localizedLabel=true
+              value=config.subProductType
+            }}
+          {{/input-or-display}}
+        </div>
+        <div class="col span-6">
+          <label class="acc-label">{{t 'clusterNew.baiducce.bandwidth.label'}}</label>
+          <div class="input-group">
+            {{#input-or-display editable=isNew value=config.bandwidthInMbps}}
+              {{input-integer min=1 step=1 max=maxBandWidth value=config.bandwidthInMbps classNames="form-control" placeholder=(t 'clusterNew.baiducce.bandwidth.placeholder')}}
+            {{/input-or-display}}
+            <span class="input-group-addon bg-default">{{t 'generic.mbps'}}</span>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    {{/accordion-list-item}}
+    {{#if (and refresh (eq step 4))}}
+    {{save-cancel editing=(eq mode 'edit')
+        save="save"
+        cancel=close
+    }}
+    {{/if}}
+  {{/if}}
+  {{top-errors errors=errors}}
+{{/accordion-list}}
 </section>

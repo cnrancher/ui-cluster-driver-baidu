@@ -1,0 +1,90 @@
+clusterNew:
+  baiducce:
+    access:
+      next: "Next: Configure Cluster"
+      loading: "Loading VPCs from Baidu Cloud"
+      title: Account Access
+      detail: Choose the region and API Key that will be used to launch Baidu Kubernetes Service
+    region:
+      label: Region
+    accessKey:
+      label: Secret ID
+      placeholder: Your Baidu Cloud secret id
+      required: Secret ID is required
+    secretKey:
+      label: Secret Key
+      placeholder: Your Baidu Cloud secret key
+      provided: Provided
+      required: Secret Key is required
+    cluster:
+      title: Cluster Configuration
+      detail: Choose the VPC and Kubernetes version that will be used to launch Baidu Kubernetes Service
+      next: "Next: Select Instance Type"
+      loading: "Loading Availability Zones from Baidu Cloud"
+    vpc:
+      label: VPC
+      required: VPC is required
+    version:
+      label: Kubernetes Version
+      required: Kubernetes Version is required
+    cidr:
+      label: Container Network CIDR
+      placeholder: 'e.g. 172.16.0.0/16'
+      required: Container network CIDR is required
+      error: Container network CIDR format error
+      errorConflict: ContainerNet conflict with existing one
+    zone:
+      label: Availability Zone
+      required: Availability Zone is required
+    nodeCount:
+      label: Node Count
+      placeholder: 'e.g. 3'
+      required: Node Count is required
+      help: The count of nodes will be launched in this Kubernetes cluster
+      error: The count of nodes should not be greater than {max}
+    instanceType:
+      label: Instance Type
+      required: Instance Type is required
+    instanceConfig:
+      label: Instance Configuration(CPU/Memory)
+      requrired: Instance Configuration is required
+    subnet:
+      label: Subnet
+      required: Subnet is required
+    node:
+      title: Node Type
+      detail: Choose the node type that will be used to launch Baidu Kubernetes Service
+      next: "Next: Configure Instance"
+      loading: "Loading configuration from Baidu Cloud"
+    instance:
+      title: Instance Configuration
+      detail: Configure the instance that will be used to launch Tencent Baidu Service
+    os:
+      label: Operating System
+    rootSize:
+      label: Root Disk Type
+      placeholder: Free Gift - 40GB for Linux
+    storageType:
+      label: CDS Disk Type
+    storageSize:
+      label: CDS Disk Size
+      placeholder: 'e.g. 10'
+    eip:
+      label: Public Network IP
+      buyEip: Purchasing Flexible Public Network IP
+      noEip: No
+      name: Name
+      placeholder: Public Network IP Name
+    bandwidth:
+      label: Band Width
+      placeholder: 'e.g. 10'
+      required: Band Width is required
+      error: Band Width value should be integers between 1 to {max}
+    securityGroup:
+      label: Security Group
+      required: Security Group is required
+    bandwidthType:
+      label: Band Width Type
+      bandwidth: Pay By band width
+      traffic: Pay By Traffic
+
