@@ -374,7 +374,7 @@ export default Ember.Component.extend(ClusterDriver, {
         errors.push(intl.t('clusterNew.baiducce.bandwidth.error', { max: get(this, 'maxBandWidth') }));
       }
 
-      if (type && (!/^\d+$/.test(value) || parseInt(value, 10) <=0 || parseInt(value, 10) > 5120) || parseInt(value, 10)%5 !== 0) {
+      if (type && (!/^\d+$/.test(value) || parseInt(value, 10) <= 0 || parseInt(value, 10) > 5120 || parseInt(value, 10) % 5 !== 0)) {
         errors.push(intl.t('clusterNew.baiducce.storageSize.error'));
       }
 
