@@ -70,8 +70,8 @@ const buyEipOptions = [
   }
 ];
 const languages = {
-  'en-us':   {"clusterNew":{"baiducce":{"access":{"next":"Next: Configure Cluster","loading":"Loading VPCs from Baidu Cloud","title":"Account Access","detail":"Choose the region and API Key that will be used to launch Baidu Kubernetes Service"},"region":{"label":"Region"},"accessKey":{"label":"Secret ID","placeholder":"Your Baidu Cloud secret id","required":"Secret ID is required"},"secretKey":{"label":"Secret Key","placeholder":"Your Baidu Cloud secret key","provided":"Provided","required":"Secret Key is required"},"cluster":{"title":"Cluster Configuration","detail":"Choose the VPC and Kubernetes version that will be used to launch Baidu Kubernetes Service","next":"Next: Select Instance Type","loading":"Loading Availability Zones from Baidu Cloud"},"vpc":{"label":"VPC","required":"VPC is required"},"version":{"label":"Kubernetes Version","required":"Kubernetes Version is required"},"cidr":{"label":"Container Network CIDR","placeholder":"e.g. 172.16.0.0/16","required":"Container network CIDR is required","error":"Container network CIDR format error","errorConflict":"ContainerNet conflict with existing one"},"zone":{"label":"Availability Zone","required":"Availability Zone is required"},"nodeCount":{"label":"Node Count","placeholder":"e.g. 3","required":"Node Count is required","help":"The count of nodes will be launched in this Kubernetes cluster","error":"The count of nodes should not be greater than {max}"},"instanceType":{"label":"Instance Type","required":"Instance Type is required"},"instanceConfig":{"label":"Instance Configuration(CPU/Memory)","required":"Instance Configuration is required"},"subnet":{"label":"Subnet","required":"Subnet is required"},"node":{"title":"Node Type","detail":"Choose the node type that will be used to launch Baidu Kubernetes Service","next":"Next: Configure Instance","loading":"Loading configuration from Baidu Cloud"},"instance":{"title":"Instance Configuration","detail":"Configure the instance that will be used to launch Tencent Baidu Service"},"os":{"label":"Operating System"},"rootSize":{"label":"Root Disk Type","placeholder":"Free Gift - 40GB for Linux"},"storageType":{"label":"CDS Disk Type"},"storageSize":{"label":"CDS Disk Size","placeholder":"e.g. 10"},"eip":{"label":"Public Network IP","buyEip":"Purchasing Flexible Public Network IP","noEip":"No","name":"Name","placeholder":"Public Network IP Name"},"bandwidth":{"label":"Band Width","placeholder":"e.g. 10","required":"Band Width is required","error":"Band Width value should be integers between 1 to {max}"},"securityGroup":{"label":"Security Group","required":"Security Group is required"},"bandwidthType":{"label":"Band Width Type","bandwidth":"Pay By band width","traffic":"Pay By Traffic"}}}},
-  'zh-hans': {"clusterNew":{"baiducce":{"access":{"next":"下一步: 配置集群","loading":"从百度云获取VPC信息","title":"账户认证","detail":"选择百度云Kubernetes服务所使用的区域"},"region":{"label":"区域"},"accessKey":{"label":"密钥ID","placeholder":"您的百度云API密钥ID","required":"请输入密钥ID"},"secretKey":{"label":"密钥","placeholder":"您的百度云API密钥","provided":"已提供","required":"请输入密钥"},"cluster":{"title":"集群配置","detail":"选择百度云Kubernetes服务中使用的VPC和版本","next":"下一步: 选择主机类型","loading":"从百度云获取可用区信息"},"vpc":{"label":"VPC","required":"请选择VPC"},"version":{"label":"Kubernetes版本","required":"请选择Kubernetes版本"},"cidr":{"label":"容器网络CIDR","placeholder":"例如: 172.16.0.0/16","required":"请输入容器网络的CIDR","error":"CIDR格式错误","errorConflict":"容器网络和其他集群的容器网络冲突"},"zone":{"label":"可用区","required":"请选择可用区"},"nodeCount":{"label":"节点数量","placeholder":"例如: 3","required":"请输入节点数量","help":"将要创建的百度云Kubernetes服务中所含有的节点数量","error":"节点数不能超过{max}"},"instanceType":{"label":"实例类型","required":"请选择实例类型"},"instanceConfig":{"label":"实例配置(CPU/Memory)","required":"请选择实例配置"},"subnet":{"label":"子网","required":"请选择子网"},"node":{"title":"主机类型","detail":"选择百度云Kubernetes服务中使用的主机类型","next":"下一步: 配置节点","loading":"从百度云获取节点配置信息"},"instance":{"title":"节点配置","detail":"配置百度云Kubernetes服务中的节点"},"os":{"label":"操作系统"},"rootSize":{"label":"系统盘","placeholder":"免费赠送 - Linux送40GB"},"storageType":{"label":"CDS云磁盘类型"},"storageSize":{"label":"CDS云磁盘大小","placeholder":"例如: 10"},"eip":{"label":"公网IP","buyEip":"购买弹性公网IP","noEip":"暂不需要","name":"名称","placeholder":"公网IP名称"},"bandwidth":{"label":"带宽","placeholder":"例如: 10","required":"请输入带宽","error":"带宽值应该是1到{max}之前的整数"},"securityGroup":{"label":"安全组","required":"请选择安全组"},"bandwidthType":{"label":"带宽类型","bandwidth":"按带宽计费","traffic":"按流量计费"}}}}
+  'en-us':   {"clusterNew":{"baiducce":{"access":{"next":"Next: Configure Cluster","loading":"Loading VPCs from Baidu Cloud","title":"Account Access","detail":"Choose the region and API Key that will be used to launch Baidu Kubernetes Service"},"region":{"label":"Region"},"accessKey":{"label":"Secret ID","placeholder":"Your Baidu Cloud secret id","required":"Secret ID is required"},"secretKey":{"label":"Secret Key","placeholder":"Your Baidu Cloud secret key","provided":"Provided","required":"Secret Key is required"},"cluster":{"title":"Cluster Configuration","detail":"Choose the VPC and Kubernetes version that will be used to launch Baidu Kubernetes Service","next":"Next: Select Instance Type","loading":"Loading Availability Zones from Baidu Cloud"},"vpc":{"label":"VPC","required":"VPC is required"},"version":{"label":"Kubernetes Version","required":"Kubernetes Version is required"},"cidr":{"label":"Container Network CIDR","placeholder":"e.g. 172.16.0.0/16","required":"Container network CIDR is required","error":"Container network CIDR format error","errorConflict":"ContainerNet conflict with existing one"},"zone":{"label":"Availability Zone","required":"Availability Zone is required"},"nodeCount":{"label":"Node Count","placeholder":"e.g. 3","required":"Node Count is required","help":"The count of nodes will be launched in this Kubernetes cluster","error":"The count of nodes should not be greater than {max}"},"instanceType":{"label":"Instance Type","required":"Instance Type is required"},"instanceConfig":{"label":"Instance Configuration(CPU/Memory)","requrired":"Instance Configuration is required"},"subnet":{"label":"Subnet","required":"Subnet is required"},"node":{"title":"Node Type","detail":"Choose the node type that will be used to launch Baidu Kubernetes Service","next":"Next: Configure Instance","loading":"Loading configuration from Baidu Cloud"},"instance":{"title":"Instance Configuration","detail":"Configure the instance that will be used to launch Tencent Baidu Service"},"os":{"label":"Operating System"},"rootSize":{"label":"Root Disk Type","placeholder":"Free Gift - 40GB for Linux"},"storageType":{"label":"CDS Disk Type"},"storageSize":{"label":"CDS Disk Size","placeholder":"e.g. 10","error":"CDS Disk Size should be greater than 0 and less than 5120 and multiple of 5"},"eip":{"label":"Public Network IP","buyEip":"Purchasing Flexible Public Network IP","noEip":"No","name":"Name","placeholder":"Public Network IP Name"},"bandwidth":{"label":"Band Width","placeholder":"e.g. 10","required":"Band Width is required","error":"Band Width value should be integers between 1 to {max}"},"securityGroup":{"label":"Security Group","required":"Security Group is required"},"bandwidthType":{"label":"Band Width Type","bandwidth":"Pay By band width","traffic":"Pay By Traffic"}}}},
+  'zh-hans': {"clusterNew":{"baiducce":{"access":{"next":"下一步: 配置集群","loading":"从百度云获取VPC信息","title":"账户认证","detail":"选择百度云Kubernetes服务所使用的区域"},"region":{"label":"区域"},"accessKey":{"label":"密钥ID","placeholder":"您的百度云API密钥ID","required":"请输入密钥ID"},"secretKey":{"label":"密钥","placeholder":"您的百度云API密钥","provided":"已提供","required":"请输入密钥"},"cluster":{"title":"集群配置","detail":"选择百度云Kubernetes服务中使用的VPC和版本","next":"下一步: 选择主机类型","loading":"从百度云获取可用区信息"},"vpc":{"label":"VPC","required":"请选择VPC"},"version":{"label":"Kubernetes版本","required":"请选择Kubernetes版本"},"cidr":{"label":"容器网络CIDR","placeholder":"例如: 172.16.0.0/16","required":"请输入容器网络的CIDR","error":"CIDR格式错误","errorConflict":"容器网络和其他集群的容器网络冲突"},"zone":{"label":"可用区","required":"请选择可用区"},"nodeCount":{"label":"节点数量","placeholder":"例如: 3","required":"请输入节点数量","help":"将要创建的百度云Kubernetes服务中所含有的节点数量","error":"节点数不能超过{max}"},"instanceType":{"label":"实例类型","required":"请选择实例类型"},"instanceConfig":{"label":"实例配置(CPU/Memory)","required":"请选择实例配置"},"subnet":{"label":"子网","required":"请选择子网"},"node":{"title":"主机类型","detail":"选择百度云Kubernetes服务中使用的主机类型","next":"下一步: 配置节点","loading":"从百度云获取节点配置信息"},"instance":{"title":"节点配置","detail":"配置百度云Kubernetes服务中的节点"},"os":{"label":"操作系统"},"rootSize":{"label":"系统盘","placeholder":"免费赠送 - Linux送40GB"},"storageType":{"label":"CDS云磁盘类型"},"storageSize":{"label":"CDS云磁盘大小","placeholder":"例如: 10","error":"CDS云磁盘大小应该在大于0且小于5120之间且是5的倍数"},"eip":{"label":"公网IP","buyEip":"购买弹性公网IP","noEip":"暂不需要","name":"名称","placeholder":"公网IP名称"},"bandwidth":{"label":"带宽","placeholder":"例如: 10","required":"请输入带宽","error":"带宽值应该是1到{max}之前的整数"},"securityGroup":{"label":"安全组","required":"请选择安全组"},"bandwidthType":{"label":"带宽类型","bandwidth":"按带宽计费","traffic":"按流量计费"}}}}
 };
 
 /*!!!!!!!!!!!DO NOT CHANGE START!!!!!!!!!!!*/
@@ -159,6 +159,11 @@ export default Ember.Component.extend(ClusterDriver, {
       set(this, 'cdsConfig', {
         type:  cds[0].toUpperCase(),
         value: cds[1],
+      });
+    } else {
+      set(this, 'cdsConfig', {
+        type:  '',
+        value: '',
       });
     }
     // init cpu and memory
@@ -359,6 +364,7 @@ export default Ember.Component.extend(ClusterDriver, {
       const intl = get(this, 'intl');
 
       const { securityGroupId, bandwidthInMbps } = get(this, 'config') ;
+      const { type, value } = get(this, 'cdsConfig');
 
       if ( !securityGroupId ) {
         errors.push(intl.t('clusterNew.baiducce.securityGroup.required'));
@@ -366,6 +372,10 @@ export default Ember.Component.extend(ClusterDriver, {
 
       if (!/^\d+$/.test(bandwidthInMbps) || parseInt(bandwidthInMbps, 10) > get(this, 'maxBandWidth') || parseInt(bandwidthInMbps, 10) < 1 ) {
         errors.push(intl.t('clusterNew.baiducce.bandwidth.error', { max: get(this, 'maxBandWidth') }));
+      }
+
+      if (type && (!/^\d+$/.test(value) || parseInt(value, 10) <=0 || parseInt(value, 10) > 5120) || parseInt(value, 10)%5 !== 0) {
+        errors.push(intl.t('clusterNew.baiducce.storageSize.error'));
       }
 
       if (errors.length > 0) {
@@ -383,7 +393,7 @@ export default Ember.Component.extend(ClusterDriver, {
       set(this, 'config.adminPass', pwd);
       set(this, 'config.adminPassConfirm', pwd);
 
-      const { type, value } = get(this, 'cdsConfig');
+      
 
       if (type && value) {
         set(this, 'config.cdsConfig', [`${ type.toLowerCase() }:${ value }`]);
@@ -512,9 +522,21 @@ export default Ember.Component.extend(ClusterDriver, {
   }),
   cdsConfigDidChanged: observer('config.cdsConfig', 'cdsTypeChoices', function() {
     const [cdsConfig] = get(this, 'config.cdsConfig') || [];
-
-    if (get(this, 'cdsTypeChoices.length') && !cdsConfig) {
-      set(this, 'cdsConfig.type', get(this, 'cdsTypeChoices.firstObject.value'));
+    const cdsTypeChoices = get(this, 'cdsTypeChoices') || [];
+    if (!cdsConfig) {
+      setProperties(this, {
+        'cdsConfig.type': '',
+        'cdsConfig.value': '',
+      });
+      return;
+    }
+    if (get(this, 'cdsTypeChoices.length') === 0) {
+      return;
+    }
+    const type = cdsConfig.split(':')[0];
+    const found = cdsTypeChoices.find((item) => item.value === type);
+    if (!found) {
+      set(this, 'cdsConfig.type', '');
     }
   }),
   cpuOrMemoryDidChange: observer('config.cpu', 'config.memory', 'cpuAndMemoryChoices', function() {
@@ -634,13 +656,19 @@ export default Ember.Component.extend(ClusterDriver, {
     const found = zoneResources.find((r) => r.physicalZone === zone);
 
     if (!found) {
-      return [];
+      return [{
+        label: 'None',
+        value: ''
+      }];
     }
 
-    return found.cdsResources.filter((cds) => cds.status === 'available').map((cds) => ({
+    return [{
+      label: 'None',
+      value: ''
+    }, ...found.cdsResources.filter((cds) => cds.status === 'available').map((cds) => ({
       label: cds.storageType,
       value: cds.storageType
-    }));
+    }))];
   }),
   loadClusterQuota(region) {
     const endpoint = '/v1/cluster';

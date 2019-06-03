@@ -69,6 +69,7 @@ clusterNew:
     storageSize:
       label: CDS Disk Size
       placeholder: 'e.g. 10'
+      error: CDS Disk Size should be greater than 0 and less than 5120 and multiple of 5
     eip:
       label: Public Network IP
       buyEip: Purchasing Flexible Public Network IP
