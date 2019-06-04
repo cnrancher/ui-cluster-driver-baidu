@@ -446,7 +446,10 @@ export default Ember.Component.extend(ClusterDriver, {
   // Any computed properties or custom logic can go here
   languageDidChanged: observer('intl.locale', function() {
     const lang = get(this, 'intl.locale');
-    this.loadLanguage(lang);
+    if (lang) {
+      this.loadLanguage(lang[0]);
+    }
+    
   }),
   accessTitle: computed('intl.locale', 'lanChanged', function() {
     return get(this, 'intl').t('clusterNew.baiducce.access.title');
