@@ -51,11 +51,13 @@ const regionMap = {
 const bandWidthOptions = [
   {
     label: 'clusterNew.baiducce.bandwidthType.bandwidth',
-    value: 'bandwidth'
+    value: 'bandwidth',
+    defaultValue: 1,
   },
   {
     label: 'clusterNew.baiducce.bandwidthType.traffic',
-    value: 'netraffic'
+    value: 'netraffic',
+    defaultValue: 1000,
   }
 ];
 
@@ -144,7 +146,7 @@ export default Ember.Component.extend(ClusterDriver, {
         subProductType:    'netraffic',
         ifBuyEip:          true,
         eipName:           '',
-        bandwidthInMbps:   1,
+        bandwidthInMbps:   1000,
         cdsConfig:         [],
       });
 
@@ -569,6 +571,11 @@ export default Ember.Component.extend(ClusterDriver, {
     if (!found && instanceTypeChoices.length > 0) {
       set(this, 'config.instanceType', instanceTypeChoices[0].value);
     }
+  }),
+  subProductTypeDidChanged: observer('config.subProductType', function() {
+    const type = get(this, 'config.subProductType');
+    const bandWidthChoices = get(this, 'bandWidthChoices');
+    set(this, 'config.bandwidthInMbps', bandWidthChoices.find((bw) => bw.value === type).defaultValue);
   }),
   regionChoices: Object.entries(regionMap).map((e) => ({
     label: e[1],
