@@ -240,10 +240,10 @@ export default Ember.Component.extend(ClusterDriver, {
       if ( !nodeCount ) {
         errors.push(intl.t('clusterNew.baiducce.nodeCount.required'));
       }
-      const { slaveCreated = 0, slave = 0 } = get(this, 'clusterQuota');
+      const maxNodeCount = get(this, 'maxNodeCount');
 
-      if (!/^\d+$/.test(nodeCount) || parseInt(nodeCount, 10) < 0 || parseInt(nodeCount, 10) > (slave - slaveCreated)) {
-        errors.push(intl.t('clusterNew.baiducce.nodeCount.error', { max: (slave - slaveCreated) }));
+      if (!/^\d+$/.test(nodeCount) || parseInt(nodeCount, 10) < 0 || parseInt(nodeCount, 10) > maxNodeCount) {
+        errors.push(intl.t('clusterNew.baiducce.nodeCount.error', { max: maxNodeCount }));
       }
       if (!clusterVersion) {
         errors.push(intl.t('clusterNew.baiducce.version.required'));
@@ -469,6 +469,11 @@ export default Ember.Component.extend(ClusterDriver, {
   }),
   instanceDetail: computed('intl.locale', 'lanChanged', function() {
     return get(this, 'intl').t('clusterNew.baiducce.instance.detail');
+  }),
+  maxNodeCount: computed('clusterQuota.slave', function() {
+    const { slave = 0 } = get(this, 'clusterQuota');
+
+    return slave;
   }),
   loadLanguage(lang) {
     if (languages[lang]) {

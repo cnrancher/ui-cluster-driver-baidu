@@ -62,7 +62,7 @@
         <div class="col span-4">
           <label class="acc-label">{{t 'clusterNew.baiducce.nodeCount.label'}}{{field-required}}</label>
           {{#input-or-display editable=(eq step 2) value=config.nodeCount}}
-            {{input-integer min=1 max=100 value=config.nodeCount classNames="form-control" placeholder=(t 'clusterNew.baiducce.nodeCount.placeholder')}}
+            {{input-integer min=1 max=maxNodeCount value=config.nodeCount classNames="form-control" placeholder=(t 'clusterNew.baiducce.nodeCount.placeholder')}}
             <p class="help-block">
               {{t 'clusterNew.baiducce.nodeCount.help'}}
             </p>
