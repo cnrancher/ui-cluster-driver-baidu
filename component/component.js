@@ -495,17 +495,15 @@ export default Ember.Component.extend(ClusterDriver, {
     return slave;
   }),
   loadLanguage(lang) {
-    if (languages[lang]) {
-      const intl = get(this, 'intl');
-      const translation = languages[lang];
-      intl.addTranslation(lang, 'clusterNew.baiducce', translation.clusterNew.baiducce);
-      intl.translationsFor(lang);
-      set(this, 'refresh', false);
-      next(() => {
-        set(this, 'refresh', true);
-        set(this, 'lanChanged', +new Date());
-      });
-    }
+    const translation = languages[lang] || languages['en-us'];
+    const intl = get(this, 'intl');
+    intl.addTranslation(lang, 'clusterNew.baiducce', translation.clusterNew.baiducce);
+    intl.translationsFor(lang);
+    set(this, 'refresh', false);
+    next(() => {
+      set(this, 'refresh', true);
+      set(this, 'lanChanged', +new Date());
+    });
   },
 
   zoneDidChanged: observer('config.region', 'config.zone', 'config.vpcId', 'instanceTypeChoices', function() {
