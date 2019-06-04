@@ -289,8 +289,8 @@ export default Ember.Component.extend(ClusterDriver, {
       if ( !subnetId ) {
         errors.push(intl.t('clusterNew.baiducce.subnet.required'));
       }
-
-      if ( !/^\d+$/.test(instanceType) ) {
+      const instanceTypeChoices = get(this, 'instanceTypeChoices') || [];
+      if ( !/^\d+$/.test(instanceType) || !instanceTypeChoices.find((t) => t.value === instanceType)) {
         errors.push(intl.t('clusterNew.baiducce.instanceType.required'));
       }
 
@@ -299,9 +299,10 @@ export default Ember.Component.extend(ClusterDriver, {
       }
 
       const cpuAndMemoryConfig = get(this, 'cpuAndMemoryConfig') || '';
+      const cpuAndMemoryChoices = get(this, 'cpuAndMemoryChoices') || [];
       const [cpu, memory] = cpuAndMemoryConfig.split('/');
 
-      if (cpu && parseInt(cpu, 10) > 0 && memory && parseInt(memory, 10) > 0) {
+      if (!cpuAndMemoryChoices.find((c) => c.value === cpuAndMemoryConfig) || (cpu && parseInt(cpu, 10) > 0 && memory && parseInt(memory, 10) > 0)) {
         setProperties(this, {
           'config.cpu':    parseInt(cpu, 10),
           'config.memory': parseInt(memory, 10)
@@ -359,7 +360,11 @@ export default Ember.Component.extend(ClusterDriver, {
       });
     },
     save(cb) {
-      setProperties(this, { 'errors': null });
+      setProperties(this, { 
+        'errors': null,
+        'otherErrors': null,
+        'clusterErrors': null,
+     });
 
       const errors = get(this, 'errors') || [];
       const intl = get(this, 'intl');
@@ -548,16 +553,21 @@ export default Ember.Component.extend(ClusterDriver, {
       set(this, 'cdsConfig.type', '');
     }
   }),
-  cpuOrMemoryDidChange: observer('config.cpu', 'config.memory', 'cpuAndMemoryChoices', function() {
+  cpuOrMemoryDidChanged: observer('config.cpu', 'config.memory', 'cpuAndMemoryChoices', 'instanceTypeChoices', function() {
     const cpuAndMemoryConfig = get(this, 'cpuAndMemoryConfig');
     const cpuAndMemoryChoices = get(this, 'cpuAndMemoryChoices') || [];
+    const found = cpuAndMemoryChoices.find((item) => item.value === cpuAndMemoryConfig);
+    if (!found && cpuAndMemoryChoices.length > 0) {
+      set(this, 'cpuAndMemoryConfig', cpuAndMemoryChoices[0].value);
+    }
+  }),
+  instanceTypeChoicesDidChanged: observer('instanceTypeChoices', function() {
+    const instanceTypeChoices = get(this, 'instanceTypeChoices') || [];
+    const instanceType = get(this, 'config.instanceType');
+    const found = instanceTypeChoices.find((t) => t.value === instanceType);
 
-    if (cpuAndMemoryChoices.length > 0 && cpuAndMemoryConfig) {
-      const found = cpuAndMemoryChoices.find((item) => item.value === cpuAndMemoryConfig);
-
-      if (!found) {
-        set(this, 'cpuAndMemoryConfig', '');
-      }
+    if (!found && instanceTypeChoices.length > 0) {
+      set(this, 'config.instanceType', instanceTypeChoices[0].value);
     }
   }),
   regionChoices: Object.entries(regionMap).map((e) => ({
