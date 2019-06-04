@@ -239,12 +239,14 @@ export default Ember.Component.extend(ClusterDriver, {
 
       if ( !nodeCount ) {
         errors.push(intl.t('clusterNew.baiducce.nodeCount.required'));
-      }
-      const maxNodeCount = get(this, 'maxNodeCount');
+      } else {
+        const maxNodeCount = get(this, 'maxNodeCount');
 
-      if (!/^\d+$/.test(nodeCount) || parseInt(nodeCount, 10) < 0 || parseInt(nodeCount, 10) > maxNodeCount) {
-        errors.push(intl.t('clusterNew.baiducce.nodeCount.error', { max: maxNodeCount }));
+        if (!/^\d+$/.test(nodeCount) || parseInt(nodeCount, 10) < 0 || parseInt(nodeCount, 10) > maxNodeCount) {
+          errors.push(intl.t('clusterNew.baiducce.nodeCount.error', { max: maxNodeCount }));
+        }
       }
+      
       if (!clusterVersion) {
         errors.push(intl.t('clusterNew.baiducce.version.required'));
       }
