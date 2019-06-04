@@ -114,11 +114,11 @@ export default Ember.Component.extend(ClusterDriver, {
       moduleName: 'shared/components/cluster-driver/driver-%%DRIVERNAME%%/template'
     });
     set(this,'layout', template);
-    const lang = get(this, 'session.language');
-    this.loadLanguage(lang);
     this._super(...arguments);
     /*!!!!!!!!!!!DO NOT CHANGE END!!!!!!!!!!!*/
-
+    const lang = get(this, 'session.language');
+    get(this, 'intl.locale');
+    this.loadLanguage(lang);
     let config      = get(this, 'config');
     let configField = get(this, 'configField');
 
@@ -219,7 +219,6 @@ export default Ember.Component.extend(ClusterDriver, {
         } else {
           errors.push(err && err.body && err.body.message);
         }
-        errors.push(err && err.body && err.body.message);
         set(this, 'errors', errors);
         cb(false);
       });
