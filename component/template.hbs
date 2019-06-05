@@ -191,7 +191,7 @@
               {{/if}}
               {{field-required}}
             </label>
-            {{#input-or-display editable=(and (eq step 3) isNew) value=selectedInstanceConfig}}
+            {{#input-or-display editable=(and (eq step 3) isNew) value=selectedInstanceConfig.label}}
               {{searchable-select class="form-control"
                 content=instanceConfigChoices
                 value=instanceConfig

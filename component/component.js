@@ -155,6 +155,7 @@ export default Ember.Component.extend(ClusterDriver, {
         cdsConfig:         [],
         gpuCard:           '',
         gpuCount:          0,
+        diskSize:          0,
       });
 
       set(this, 'cluster.%%DRIVERNAME%%EngineConfig', config);
@@ -306,20 +307,20 @@ export default Ember.Component.extend(ClusterDriver, {
         errors.push(intl.t('clusterNew.baiducce.cidr.error'));
       }
 
-      const instanceConfig = get(this, 'instanceConfig') || '';
-      const instanceConfigChoices = get(this, 'instanceConfigChoices') || [];
-      const [cpu, memory, gpuType, gpuCount] = instanceConfig.split('/');
-
-      if (!instanceConfigChoices.find((c) => c.value === instanceConfig) || (cpu && parseInt(cpu, 10) > 0 && memory && parseInt(memory, 10) > 0)) {
-        const instanceConfig = {
+      const instanceConfig = get(this, 'selectedInstanceConfig');
+      const [cpu, memory, gpuType, gpuCount] = (instanceConfig.value || '').split('/');
+      
+      if (instanceConfig.raw && (cpu && parseInt(cpu, 10) > 0 && memory && parseInt(memory, 10) > 0)) {
+        const config = {
           'config.cpu':    parseInt(cpu, 10),
           'config.memory': parseInt(memory, 10)
         };
         if (instanceType === 9) {
-          instanceConfig.gpuCard = parseInt(gpuType, 10);
-          instanceConfig.gpuCount = parseInt(gpuCount, 10);
+          config['config.gpuCard'] = gpuType;
+          config['config.gpuCount'] = parseInt(gpuCount, 10);
+          config['config.diskSize'] = instanceConfig.raw.ephemeralDiskInGb;
         }
-        setProperties(this, instanceConfig);
+        setProperties(this, config);
       } else {
         errors.push(intl.t('clusterNew.baiducce.instanceConfig.required'));
       }
@@ -380,10 +381,12 @@ export default Ember.Component.extend(ClusterDriver, {
       const intl = get(this, 'intl');
 
       const {
-        nodeCount, clusterVersion
+        nodeCount, clusterVersion, cdsConfig
       } = get(this, 'config');
 
-      
+      if (!cdsConfig) {
+        set(this, 'config.cdsConfig', []);
+      }
 
       if ( !nodeCount ) {
         errors.push(intl.t('clusterNew.baiducce.nodeCount.required'));
@@ -614,7 +617,7 @@ export default Ember.Component.extend(ClusterDriver, {
       set(this, 'cdsConfig.type', '');
     }
   }),
-  cpuOrMemoryDidChanged: observer('config.cpu', 'config.memory', 'instanceConfigChoices', 'instanceTypeChoices', function() {
+  instanceConfigDidChanged: observer('config.cpu', 'config.memory','config.gpuCard', 'config.gpuCount', 'instanceConfigChoices', 'instanceTypeChoices', function() {
     const instanceConfig = get(this, 'instanceConfig');
     const instanceConfigChoices = get(this, 'instanceConfigChoices') || [];
     const found = instanceConfigChoices.find((item) => item.value === instanceConfig);
@@ -694,7 +697,7 @@ export default Ember.Component.extend(ClusterDriver, {
     const choices = get(this, 'instanceConfigChoices') || [];
     const found = choices.find((item) => item.value === cm);
 
-    return found && found.label;
+    return found || {};
   }),
   maxBandWidth: computed('config.subProductType', function() {
     const t = get(this, 'config.subProductType');
@@ -768,11 +771,8 @@ export default Ember.Component.extend(ClusterDriver, {
   localDiskSizeLabel: computed('isGPU', 'selectedInstanceConfig', 'intl.locale', function() {
     const config = get(this, 'selectedInstanceConfig');
     if (get(this, 'isGPU') && config) {
-      const c = get(this, 'instanceConfig');
-      const choices = get(this, 'instanceConfigChoices') || [];
-      const found = choices.find((item) => item.value === c);
       const intl = get(this, 'intl');
-      return intl.t('clusterNew.baiducce.localDisk.placeholder', { size: found && found.raw.ephemeralDiskInGb });
+      return intl.t('clusterNew.baiducce.localDisk.placeholder', { size: config.raw && config.raw.ephemeralDiskInGb });
     }
     return '';
   }),
