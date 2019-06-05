@@ -98,8 +98,6 @@ export default Ember.Component.extend(ClusterDriver, {
   zoneChoices:       [],
   vpcChoices:        [],
   sgChoices:         [],
-  bandWidthChoices:  bandWidthOptions,
-  buyEipChoices:     buyEipOptions,
   clusterQuota:      null,
   snapshotChoices:   [],
   imageChioces:      [],
@@ -493,6 +491,20 @@ export default Ember.Component.extend(ClusterDriver, {
     const { slave = 0 } = get(this, 'clusterQuota');
 
     return slave;
+  }),
+  bandWidthChoices: computed('intl.locale', function() {
+    const intl = get(this, 'intl');
+    return bandWidthOptions.map((item) => ({
+      ...item,
+      label: intl.t(item.label),
+    }));
+  }),
+  buyEipChoices: computed('intl.locale', function() {
+    const intl = get(this, 'intl');
+    return buyEipOptions.map((item) => ({
+      ...item,
+      label: intl.t(item.label),
+    }));
   }),
   loadLanguage(lang) {
     const translation = languages[lang] || languages['en-us'];
