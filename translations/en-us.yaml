@@ -47,6 +47,7 @@ clusterNew:
       required: Instance Type is required
     instanceConfig:
       label: Instance Configuration(CPU/Memory)
+      gpuLabel: Instance Configuration(CPU/Memory/GPU Type/GPU Count)
       required: Instance Configuration is required
     subnet:
       label: Subnet

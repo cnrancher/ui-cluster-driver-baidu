@@ -47,6 +47,7 @@ clusterNew:
       required: 请选择实例类型
     instanceConfig:
       label: 实例配置(CPU/Memory)
+      gpuLabel: 实例配置(CPU/Memory/GPU Type/GPU Count)
       required: 请选择实例配置
     subnet:
       label: 子网

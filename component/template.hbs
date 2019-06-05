@@ -137,11 +137,18 @@
           {{/input-or-display}}
         </div>
         <div class="col span-6">
-          <label class="acc-label">{{t 'clusterNew.baiducce.instanceConfig.label'}}{{field-required}}</label>
+          <label class="acc-label">
+            {{#if isGPU}}
+            {{t 'clusterNew.baiducce.instanceConfig.gpuLabel'}}
+            {{else}}
+            {{t 'clusterNew.baiducce.instanceConfig.label'}}
+            {{/if}}
+            {{field-required}}
+          </label>
           {{#input-or-display editable=(and (eq step 3) isNew) value=selectedCpuAndMemory}}
             {{searchable-select class="form-control"
-              content=cpuAndMemoryChoices
-              value=cpuAndMemoryConfig
+              content=instanceConfigChoices
+              value=instanceConfig
               change=(action 'cpuAndMemoryChanged')
             }}
           {{/input-or-display}}
