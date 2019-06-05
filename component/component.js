@@ -790,10 +790,21 @@ export default Ember.Component.extend(ClusterDriver, {
     // });
     return versions.map((v) => {
       const tmp = v.value.split('.').map((item) => parseInt(item, 10));
+      let disabled = false;
+      const len = Math.max(cv.length, tmp.length);
+      for (let i=0; i<len; i++) {
+        if ((tmp[i] || 0) > (cv[i] || 0)) {
+          disabled = false
+          break;
+        } else if ((tmp[i] || 0) < (cv[i] || 0)) {
+          disabled = true;
+          break;
+        }
+      }
 
       return {
         ...v,
-        disabled: !cv.every((item, index) => (tmp[index] || 0) >= item),
+        disabled,
       };
     });
 
