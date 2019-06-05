@@ -373,6 +373,41 @@ export default Ember.Component.extend(ClusterDriver, {
         cb(false);
       });
     },
+    upgradeCluster(cb) {
+      setProperties(this, { 'errors': null });
+
+      const errors = get(this, 'errors') || [];
+      const intl = get(this, 'intl');
+
+      const {
+        nodeCount, clusterVersion
+      } = get(this, 'config');
+
+      
+
+      if ( !nodeCount ) {
+        errors.push(intl.t('clusterNew.baiducce.nodeCount.required'));
+      } else {
+        const maxNodeCount = get(this, 'maxNodeCount');
+
+        if (!/^\d+$/.test(nodeCount) || parseInt(nodeCount, 10) < 0 || parseInt(nodeCount, 10) > maxNodeCount) {
+          errors.push(intl.t('clusterNew.baiducce.nodeCount.error', { max: maxNodeCount }));
+        }
+      }
+      
+      if (!clusterVersion) {
+        errors.push(intl.t('clusterNew.baiducce.version.required'));
+      }
+
+      if (errors.length > 0) {
+        set(this, 'errors', errors);
+        cb();
+
+        return;
+      }
+
+      this.send('driverSave', cb);
+    },
     save(cb) {
       setProperties(this, { 
         'errors': null,
@@ -729,6 +764,28 @@ export default Ember.Component.extend(ClusterDriver, {
   }),
   isGPU: computed('config.instanceType', function() {
     return get(this, 'config.instanceType') === 9;
+  }),
+  upgradableVersions: computed('versionChoices', function() {
+    const versions = get(this, 'versionChoices');
+    const currentVersion = get(this, 'config.clusterVersion');
+    if (!currentVersion) {
+      return [];
+    }
+    const cv = currentVersion.split('.').map((v) => parseInt(v, 10));
+    // return versions.filter((v) => {
+    //   const tmp = v.value.split('.').map((item) => parseInt(item, 10));
+
+    //   return cv.every((item, index) => (tmp[index] || 0) >= item);
+    // });
+    return versions.map((v) => {
+      const tmp = v.value.split('.').map((item) => parseInt(item, 10));
+
+      return {
+        ...v,
+        disabled: !cv.every((item, index) => (tmp[index] || 0) >= item),
+      };
+    });
+
   }),
   loadClusterQuota(region) {
     const endpoint = '/v1/cluster';
