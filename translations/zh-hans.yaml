@@ -71,6 +71,9 @@ clusterNew:
       label: CDS云磁盘大小
       placeholder: '例如: 10'
       error: CDS云磁盘大小应该在大于0且小于5120之间且是5的倍数
+    localDisk:
+      label: 本地磁盘
+      placeholder: "{size} GB(暂不支持自主选择)"
     eip:
       label: 公网IP
       buyEip: 购买弹性公网IP

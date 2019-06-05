@@ -191,7 +191,7 @@
               {{/if}}
               {{field-required}}
             </label>
-            {{#input-or-display editable=(and (eq step 3) isNew) value=selectedCpuAndMemory}}
+            {{#input-or-display editable=(and (eq step 3) isNew) value=selectedInstanceConfig}}
               {{searchable-select class="form-control"
                 content=instanceConfigChoices
                 value=instanceConfig
@@ -233,7 +233,6 @@
             <div class="input-group">
             {{t 'clusterNew.baiducce.rootSize.placeholder'}}
             </div>
-            
           </div>
         </div>
         <div class="row">
@@ -247,6 +246,12 @@
             {{/input-or-display}}
           </div>
           <div class="col span-6">
+            {{#if isGPU}}
+            <label class="acc-label">{{t 'clusterNew.baiducce.localDisk.label'}}</label>
+            <div class="input-group">
+            {{localDiskSizeLabel}}
+            </div>
+            {{/if}}
           </div>
         </div>
 
