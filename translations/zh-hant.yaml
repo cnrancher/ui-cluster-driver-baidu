@@ -1,0 +1,94 @@
+clusterNew:
+  baiducce:
+    access:
+      next: "下一步: 配置集群"
+      loading: "從百度雲獲取VPC信息"
+      title: 賬戶認證
+      detail: 選擇百度雲Kubernetes服務所使用的區域
+    region:
+      label: 區域
+    accessKey:
+      label: 密鑰ID
+      placeholder: 您的百度雲API密鑰ID
+      required: 請輸入密鑰ID
+    secretKey:
+      label: 密鑰
+      placeholder: 您的百度雲API密鑰
+      provided: 已提供
+      required: 請輸入密鑰
+    cluster:
+      title: 集群配置
+      detail: 選擇百度雲Kubernetes服務中使用的VPC和版本
+      next: "下一步: 選擇主機類型"
+      loading: "從百度雲獲取可用區信息"
+    vpc:
+      label: VPC
+      required: 請選擇VPC
+    version:
+      label: Kubernetes版本
+      required: 請選擇Kubernetes版本
+    cidr:
+      label: 容器網絡CIDR
+      placeholder: '例如: 172.16.0.0/16'
+      required: 請輸入容器網絡的CIDR
+      error: CIDR格式錯誤
+      errorConflict: 容器網絡和其他集群的容器網絡衝突
+    zone:
+      label: 可用區
+      required: 請選擇可用區
+    nodeCount:
+      label: 節點數量
+      placeholder: '例如: 3'
+      required: 請輸入節點數量
+      help: 將要創建的百度雲Kubernetes服務中所含有的節點數量
+      error: 節點數不能超過{max}
+    instanceType:
+      label: 實例類型
+      required: 請選擇實例類型
+    instanceConfig:
+      label: 實例配置(CPU/Memory)
+      gpuLabel: 實例配置(CPU/Memory/GPU Type/GPU Count)
+      required: 請選擇實例配置
+    subnet:
+      label: 子網
+      required: 請選擇子網
+    node:
+      title: 主機類型
+      detail: 選擇百度雲Kubernetes服務中使用的主機類型
+      next: "下一步: 配置節點"
+      loading: "從百度雲獲取節點配置信息"
+    instance:
+      title: 節點配置
+      detail: 配置百度雲Kubernetes服務中的節點
+    os:
+      label: 操作系統
+    rootSize:
+      label: 系統盤
+      placeholder: 免費贈送 - Linux送40GB
+    storageType:
+      label: CDS雲磁盤類型
+    storageSize:
+      label: CDS雲磁盤大小
+      placeholder: '例如: 10'
+      error: CDS雲磁盤大小應該在大於0且小於5120之間且是5的倍數
+    localDisk:
+      label: 本地磁盤
+      placeholder: "{size} GB(暫不支持自主選擇)"
+    eip:
+      label: 公網IP
+      buyEip: 購買彈性公網IP
+      noEip: 暫不需要
+      name: 名稱
+      placeholder: 公網IP名稱
+    bandwidth:
+      label: 帶寬
+      placeholder: '例如: 10'
+      required: 請輸入帶寬
+      error: 帶寬值應該是1到{max}之前的整數
+    securityGroup:
+      label: 安全組
+      required: 請選擇安全組
+    bandwidthType:
+      label: 帶寬類型
+      bandwidth: 按帶寬計費
+      traffic: 按流量計費
