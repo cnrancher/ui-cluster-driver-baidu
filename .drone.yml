@@ -1,0 +1,50 @@
+---
+kind: pipeline
+name: default
+type: docker
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  image: node
+  commands:
+  - npm install
+  - npm run build
+  when:
+    event:
+    - push
+    - tag
+
+- name: upload-test-to-oss
+  image: trylife/aliyun-ossutil:latest
+  environment:
+    OSS_KEY_ID:
+      from_secret: OSS_KEY_ID
+    OSS_KEY_SECRET:
+      from_secret: OSS_KEY_SECRET
+  commands:
+  - ossutil config  -L CH -e "oss-cn-beijing.aliyuncs.com" -i $OSS_KEY_ID -k $OSS_KEY_SECRET
+  - ossutil cp -rf ./dist oss://sy-ui/yuzeng/baidu/test
+  when:
+    event:
+    - push
+
+- name: deployment-to-oss
+  image: trylife/aliyun-ossutil:latest
+  environment:
+    OSS_KEY_ID:
+      from_secret: OSS_KEY_ID
+    OSS_KEY_SECRET:
+      from_secret: OSS_KEY_SECRET
+  commands:
+  - ossutil config  -L CH -e "oss-cn-beijing.aliyuncs.com" -i $OSS_KEY_ID -k $OSS_KEY_SECRET
+  - ossutil cp -rf ./dist oss://rancher2-drivers/pandaria/ui/cluster-driver-baidu/${DRONE_TAG}
+  when:
+    event:
+    - tag
+
+node:
+  instance: agent-amd64
